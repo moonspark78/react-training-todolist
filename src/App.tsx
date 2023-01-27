@@ -3,22 +3,27 @@ import "./App.css";
 import { Task } from "./components/Task";
 import { TaskFormModal } from "./components/TaskFormModal";
 import { data } from "./data/tasks";
-import {Header} from "./components/Header"
-import {TasksList} from "./components/TaskList"
+import {Header} from "./components/Header";
+import {TasksList} from "./components/TaskList";
+import { useState } from "react";
 
 
 const App = () => {
   const title = "To do list";
-  const tasks = data;
+  /* const tasks = data; */
   const taskToEdit: any = null;
+  const [show, setShow] = useState(false);
+  const [tasks, setTasks] = useState(data);
 
   const updateTaskState = (taskId: number) => {
     console.error("I need to be implemented");
   };
 
   const addOrEditTask = (event: any, taskToEditId?: number) => {
-    event.preventDefault();
-    console.error("I need to be implemented");
+
+    tasks.push(event);
+    setShow(false);
+
   };
 
   const editTask = (taskId: number) => {
@@ -26,8 +31,13 @@ const App = () => {
   };
 
   const deleteTask = (taskId: number) => {
-    console.error("I need to be implemented");
+    /* let copyTask = tasks;
+    copyTask.splice(taskId,1);
+    setTasks(copyTask); */
+    setTasks((prev) => prev.filter((task) => task.id !== taskId))
   };
+
+  
 
   return (
     <div className="main">
@@ -42,20 +52,19 @@ const App = () => {
           <Task task={task}/>
         ))} */}
 
-      <TasksList tasks={tasks} />
+      <TasksList deleteTask={deleteTask} editTask={editTask} tasks={tasks} />
       
 
       <button
         className="add-task-btn"
-        onClick={() => console.log("this button should open the modal")}
+        onClick={() => setShow(true)}
       >
         +
       </button>
       <TaskFormModal
-        show={false}
-        handleClose={() =>
-          console.log("pass me a method that will close the modal")
-        }
+        show={show}
+        handleClose={ () => setShow(false)}
+
         addOrEditTask={addOrEditTask}
         initialValues={
           taskToEdit != null
