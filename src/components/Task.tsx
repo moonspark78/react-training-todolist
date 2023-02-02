@@ -8,6 +8,10 @@ type TaskProps = {
   editTask: (taskId: number) => void;
 };
 
+/* const container = styled.{task-container}`
+background-color:red;
+` */
+
 export const Task = ({task, deleteTask, editTask}: TaskProps) => {
   return (
     <div className="task-container">
