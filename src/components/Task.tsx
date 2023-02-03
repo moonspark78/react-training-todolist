@@ -14,7 +14,7 @@ background-color:red;
 
 export const Task = ({task, deleteTask, editTask}: TaskProps) => {
   return (
-    <div className="task-container">
+    <div className="task-container" >
       <div className="task-content">
         <label className="container">
           <input type="checkbox" checked={false} onChange={() => console.log("")
